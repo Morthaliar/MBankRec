@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBankRec", "MBankRec.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "..\Repository\Repository.csproj", "{4424447F-C477-4ED6-ADD7-FD10CCCCC9EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "..\Logic\Logic.csproj", "{FF6C3D26-E387-4748-AB72-0758C4094B86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{72C3BC2A-5738-40D0-B154-E09305E72F6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{4424447F-C477-4ED6-ADD7-FD10CCCCC9EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4424447F-C477-4ED6-ADD7-FD10CCCCC9EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4424447F-C477-4ED6-ADD7-FD10CCCCC9EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6C3D26-E387-4748-AB72-0758C4094B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6C3D26-E387-4748-AB72-0758C4094B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6C3D26-E387-4748-AB72-0758C4094B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6C3D26-E387-4748-AB72-0758C4094B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
