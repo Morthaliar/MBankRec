@@ -7,24 +7,24 @@ using Microsoft.Extensions.Logging;
 
 namespace Logic
 {
-    public class FileHelper
+    public class WsadzarkaDanych
     {
         private ServiceProvider _services;
         private readonly IOczyszczaczDanych _oczyszczaczDanych;
         private readonly IWalidatorWierszy _walidatorWierszy;
-      //  private readonly ILogger _logger;
-        public FileHelper()
+        //  private readonly ILogger _logger;
+        public WsadzarkaDanych()
         {
-            
+
             _services = new ServiceCollection()
             .AddTransient<IOczyszczaczDanych, OczyszczaczDanych>()
             .AddTransient<IWalidatorWierszy, WalidatorWierszy>()
-           // .AddLogging()            
-            .BuildServiceProvider()            ;
+            // .AddLogging()            
+            .BuildServiceProvider();
 
             _oczyszczaczDanych = _services.GetService<IOczyszczaczDanych>();
             _walidatorWierszy = _services.GetService<IWalidatorWierszy>();
-          //  _logger = _services.GetService<ILogger>();
+            //  _logger = _services.GetService<ILogger>();
         }
         /// <summary>
         /// 
@@ -36,9 +36,9 @@ namespace Logic
             var naglowki = new List<string>();
             var obiekty = new List<Przelew>();
             var plik = new FileInfo(sciezkaPliku);
-       
-         
-            
+
+
+
             using (StreamReader sr = new StreamReader(sciezkaPliku))
             {
                 try
@@ -48,7 +48,7 @@ namespace Logic
                     {
                         var aktualnaLinia = _oczyszczaczDanych.UsunZbedneZnaki(sr.ReadLine());
 
-                        if (!string.IsNullOrEmpty(aktualnaLinia)) //todo:mpatela za duzo zagniezdzen
+                        if (!string.IsNullOrEmpty(aktualnaLinia))
                         {
                             if (licznik == 0)
                             {
@@ -59,12 +59,14 @@ namespace Logic
                             else
                             {
                                 var interpretacjaWiersza = _walidatorWierszy.InterpretujWiersz(aktualnaLinia, naglowki, separator);
-                                interpretacjaWiersza.Przelew.TrybDodania = TrybDodania.ZPliku;
-                                interpretacjaWiersza.Przelew.DodanyDnia = DateTime.Now;
-                                interpretacjaWiersza.Przelew.PlikPochodzenia = plik.Name;
 
-
-                                if (interpretacjaWiersza.powodzenie == true) { obiekty.Add(interpretacjaWiersza.Przelew); }
+                                if (interpretacjaWiersza.powodzenie == true)
+                                {
+                                    interpretacjaWiersza.Przelew.TrybDodania = TrybDodania.ZPliku;
+                                    interpretacjaWiersza.Przelew.DodanyDnia = DateTime.Now;
+                                    interpretacjaWiersza.Przelew.PlikPochodzenia = plik.Name;
+                                    obiekty.Add(interpretacjaWiersza.Przelew);
+                                }
                             }
                             //todo: mpatela tu jeszcze logować ile się powiodło, a ile nie
                             licznik++;

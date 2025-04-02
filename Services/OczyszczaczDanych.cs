@@ -15,7 +15,7 @@ namespace Services
         /// <returns></returns>
         public string UsunZbedneZnaki(string dane)
         {
-            return dane.Replace("”", "");
+            return dane.Replace("”", "").Trim();
         }
     }
 

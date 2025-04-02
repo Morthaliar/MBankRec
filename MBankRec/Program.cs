@@ -19,7 +19,7 @@ class Program
 #endif
 
 
-        var wielkorzadca = new Logic.FileHelper();
+        var wielkorzadca = new Logic.WsadzarkaDanych();
         var repo = new RepozytoriumPrzelewy();
         var daneZPliku = wielkorzadca.PobnierzDaneZPliku(sciezkaPliku);
         foreach (var przelew in daneZPliku)
