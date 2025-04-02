@@ -1,6 +1,7 @@
 ﻿using Models;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Services
 {
@@ -20,7 +21,7 @@ namespace Services
             var podzielone = wiersz.Split(separator);
             if (podzielone.Length == 0) { return (false, null); }
 
-            else return (true,podzielone.ToList());
+            else return (true, podzielone.ToList());
         }
 
 
@@ -32,10 +33,11 @@ namespace Services
         /// <returns></returns>
         public (bool powodzenie, Przelew Przelew) InterpretujWiersz(string wiersz, List<string> naglowki, char separator = ',')
         {
-            var rozszyte = wiersz.Split(separator).ToList();
+            var rozszyte = wiersz.Split(separator).Select(item => item.Trim()).ToList();
             rozszyte.Except(new List<string>() { "ID", "DodanyDnia", "TrybDodania", "PlikPochodzenia" });
 
             if (rozszyte.Count == 0) { return (false, null); };
+           
 
             var przelew = new Przelew();
             var licznik = naglowki.Count;
@@ -89,12 +91,13 @@ namespace Services
                                     bledy = true; break;
                                 }
                             }
+                            if (!SprawdzCzySameLiczby(rozszyte[i])) { bledy = true; }
                             przelew.RachunekNadawcy = rozszyte[i];
                             break;
                         }
                     case "rachunekOdbiorcy":
                         {
-                            
+
                             if (string.IsNullOrEmpty(rozszyte[i]) || string.IsNullOrWhiteSpace(rozszyte[i]))
                             {
                                 if (CzyPoleWYmagane("RachunekOdbiorcy"))
@@ -102,6 +105,7 @@ namespace Services
                                     bledy = true; break;
                                 }
                             }
+                            if (!SprawdzCzySameLiczby(rozszyte[i])) { bledy = true; }
                             przelew.RachunekOdbiorcy = rozszyte[i];
                             break;
                         }
@@ -124,9 +128,15 @@ namespace Services
             return (true, przelew);
         }
 
+        private bool SprawdzCzySameLiczby(string wartosc)
+        {
+            string wzor = @"^\d+$";
+            var rezultat = Regex.IsMatch(wartosc, wzor);
+            return rezultat;
+        }
         private bool CzyPoleWYmagane(string pole)
         {
-            var atrybut =  typeof(Przelew).GetProperties().Where(w => w.Name == pole).FirstOrDefault().GetCustomAttribute(typeof(RequiredAttribute), false);
+            var atrybut = typeof(Przelew).GetProperties().Where(w => w.Name == pole).FirstOrDefault().GetCustomAttribute(typeof(RequiredAttribute), false);
 
             return atrybut is not null;
         }

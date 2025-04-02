@@ -31,19 +31,18 @@ namespace Logic
         /// </summary>
         /// <param name="sciezkaPliku"></param>
         /// <param name="separator">jaki znak rozdziela poszczególne partie danych</param>
-        public List<Przelew> PobnierzDaneZPliku(string sciezkaPliku, char separator = ',')
+        public (List<Przelew> przeprocesowaneDane, int otrzymanychDanych) PobnierzDaneZPliku(string sciezkaPliku, char separator = ',')
         {
             var naglowki = new List<string>();
             var obiekty = new List<Przelew>();
             var plik = new FileInfo(sciezkaPliku);
 
 
-
+            var licznik = 0;
             using (StreamReader sr = new StreamReader(sciezkaPliku))
             {
                 try
                 {
-                    var licznik = 0;
                     while (!sr.EndOfStream)
                     {
                         var aktualnaLinia = _oczyszczaczDanych.UsunZbedneZnaki(sr.ReadLine());
@@ -75,7 +74,8 @@ namespace Logic
                 }
                 finally { sr.Close(); }
             }
-            return obiekty;
+            licznik--;
+            return (obiekty, licznik);
         }
 
     }

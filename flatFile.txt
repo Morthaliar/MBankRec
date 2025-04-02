@@ -10,3 +10,4 @@ LP,kwota,rachunekNadawcy,rachunekOdbiorcy,”opis”
 
 3,33, 8311405756744800997011289, 7911401241106800660013656666,
 
+2,2222, tu nie liczba, 79114012411068000013656666,”dowolny opis pole 2”

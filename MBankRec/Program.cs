@@ -22,12 +22,14 @@ class Program
         var wielkorzadca = new Logic.WsadzarkaDanych();
         var repo = new RepozytoriumPrzelewy();
         var daneZPliku = wielkorzadca.PobnierzDaneZPliku(sciezkaPliku);
-        foreach (var przelew in daneZPliku)
+        foreach (var przelew in daneZPliku.przeprocesowaneDane)
         {
             repo.DodajPrzelew(przelew);
            // repo.DodajPrzelewProcedura(przelew);
         }
+        Console.WriteLine($@"Przeprocesowano {daneZPliku.przeprocesowaneDane.Count} z {daneZPliku.otrzymanychDanych} otrzymanych rekordów");
 
+        Console.ReadKey();
 
     }
 
