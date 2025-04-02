@@ -1,6 +1,7 @@
 ﻿
 using System.Security.Cryptography.X509Certificates;
 using Logic;
+using Repository;
 
 class Program
 {
@@ -19,9 +20,13 @@ class Program
 
 
         var wielkorzadca = new Logic.FileHelper();
+        var repo = new RepozytoriumPrzelewy();
         var daneZPliku = wielkorzadca.PobnierzDaneZPliku(sciezkaPliku);
-
-
+        foreach (var przelew in daneZPliku)
+        {
+            repo.DodajPrzelew(przelew);
+           // repo.DodajPrzelewProcedura(przelew);
+        }
 
 
     }

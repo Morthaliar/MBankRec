@@ -14,30 +14,40 @@ namespace Logic
         {
             var naglowki = new List<string>();
             var obiekty = new List<Przelew>();
+            var plik = new FileInfo(sciezkaPliku);
+
             using (StreamReader sr = new StreamReader(sciezkaPliku))
             {
-                var licznik = 0;
-                while (!sr.EndOfStream)
+                try
                 {
-                    var aktualnaLinia = WyczyscZNadmiarowychZnakow(sr.ReadLine());
-                    if (!string.IsNullOrEmpty(aktualnaLinia)) //todo:mpatela za duzo zagniezdzen
+                    var licznik = 0;
+                    while (!sr.EndOfStream)
                     {
-                        if (licznik == 0)
+                        var aktualnaLinia = WyczyscZNadmiarowychZnakow(sr.ReadLine());
+                        if (!string.IsNullOrEmpty(aktualnaLinia)) //todo:mpatela za duzo zagniezdzen
                         {
-                            var interpretacjaNaglowkow = InterpretujNaglowki(aktualnaLinia, separator);
-                            if (interpretacjaNaglowkow.powodzenie == false) { break; }
-                            naglowki = interpretacjaNaglowkow.naglowki;
-                        }
-                        else
-                        {
-                            var interpretacjaWiersza = InterpretujWiersz(aktualnaLinia, naglowki, separator);
+                            if (licznik == 0)
+                            {
+                                var interpretacjaNaglowkow = InterpretujNaglowki(aktualnaLinia, separator);
+                                if (interpretacjaNaglowkow.powodzenie == false) { break; }
+                                naglowki = interpretacjaNaglowkow.naglowki;
+                            }
+                            else
+                            {
+                                var interpretacjaWiersza = InterpretujWiersz(aktualnaLinia, naglowki, separator);
+                                interpretacjaWiersza.Przelew.TrybDodania = TrybDodania.ZPliku;
+                                interpretacjaWiersza.Przelew.DodanyDnia = DateTime.Now;
+                                interpretacjaWiersza.Przelew.PlikPochodzenia = plik.Name;
 
-                            if (interpretacjaWiersza.powodzenie == true) { obiekty.Add(interpretacjaWiersza.Przelew); }
+
+                                if (interpretacjaWiersza.powodzenie == true) { obiekty.Add(interpretacjaWiersza.Przelew); }
+                            }
+                            //todo: mpatela tu jeszcze logować ile się powiodło, a ile nie
+                            licznik++;
                         }
-                        //todo: mpatela tu jeszcze logować ile się powiodło, a ile nie
-                        licznik++;
                     }
                 }
+                finally { sr.Close(); }
             }
             return obiekty;
         }
@@ -60,9 +70,10 @@ namespace Logic
         /// <returns></returns>
         private (bool powodzenie, Przelew Przelew) InterpretujWiersz(string wiersz, List<string> naglowki, char separator = ',')
         {
-            var rozszyte = wiersz.Split(separator);
+            var rozszyte = wiersz.Split(separator).ToList();
+            rozszyte.Except(new List<string>() { "ID", "DodanyDnia", "TrybDodania", "PlikPochodzenia" });
 
-            if (rozszyte.Length == 0) { return (false, null); };
+            if (rozszyte.Count == 0) { return (false, null); };
             if (rozszyte.ToList().Count != naglowki.Count) { return (false, null); }; //todo: znowu kwestia pol wymaganych i opcjonalnych.
 
             var przelew = new Przelew();
@@ -142,6 +153,7 @@ namespace Logic
             var polaKlasy = typeof(Przelew)
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
            .Select(p => p.Name.ToUpper())
+           .Except(new List<string>() { "ID", "DODANYDNIA", "TRYBDODANIA", "PLIKPOCHODZENIA" })
            .ToList();
 
             //todo: mpatela podwalidatory wywalic do osobnych metod
