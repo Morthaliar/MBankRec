@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBankRec", "MBankRec.csproj", "{A1A27AFB-3CE0-4A61-8AF4-46A0E1A58643}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "..\Logic\Logic.csproj", "{FF6C3D26-E387-4748-AB72-0758C4094B86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{72C3BC2A-5738-40D0-B154-E09305E72F6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{A097BEBE-B1B2-4B98-8B8A-09003AFB2E38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72C3BC2A-5738-40D0-B154-E09305E72F6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A097BEBE-B1B2-4B98-8B8A-09003AFB2E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A097BEBE-B1B2-4B98-8B8A-09003AFB2E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A097BEBE-B1B2-4B98-8B8A-09003AFB2E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A097BEBE-B1B2-4B98-8B8A-09003AFB2E38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
